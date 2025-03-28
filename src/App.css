@@ -1,0 +1,82 @@
+.board-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vw;
+}
+
+.board-container .board{
+  display: flex;
+  flex-direction: row;
+}
+
+.circle{
+  width: 5rem;
+  height: 5rem;
+  background-color: black;
+  border-radius: 50%;
+}
+
+.circle.player-1{
+  background-color: cyan;
+}
+
+.circle.player-2{
+  background-color: #f188fb;
+}
+
+
+.column-player-1{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+}
+
+.column-player-1:hover{
+  background-color: cyan;
+}
+
+.column-player-2{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+}
+
+.column-player-2:hover{
+  background-color: #f188fb;
+}
+.row{
+  /* border: 1px solid cyan; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+
+.winner-modal{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.winner-container{
+  background-color: white;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.winner-title{
+  color: black;
+}
