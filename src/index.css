@@ -36,13 +36,23 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 20rem;
   min-height: 100dvh;
+  width: 100dvw;
+}
+
+#root {
+  width: 100%;
 }
 
 h1 {
-  font-size: 3.2rem;
+  font-size: 2rem;
   line-height: 1.1;
+}
+
+@media (min-width: 32rem) {
+  h1 {
+    font-size: 3.2rem;
+  }
 }
 
 button {
