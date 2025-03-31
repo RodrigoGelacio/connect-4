@@ -1,15 +1,21 @@
-import { useEffect } from "react";
+import { useState } from "react"
+import { useEffect } from "react"
 
-export function Circle({ index, turn, restart }) {
-  let circleColorClass = "circle";
-
-  if (turn !== null && turn !== undefined) {
-    circleColorClass = turn ? "circle player-1" : "circle player-2";
-  }
+export function Circle({ turn, restart }) {
+  const [colorClass, setColorClass] = useState("")
 
   useEffect(() => {
-    circleColorClass = "circle";
-  }, [restart]);
+    if (restart) {
+      setColorClass("")
+      return
+    }
 
-  return <div className={circleColorClass}></div>;
+    if (turn === null || turn === undefined) return
+
+    const currentColorClass = turn === true ? "player-1" : "player-2"
+
+    setColorClass(currentColorClass)
+  }, [turn, restart])
+
+  return <span className={[colorClass, "circle"].join(" ")}></span>
 }
