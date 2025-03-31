@@ -29,7 +29,7 @@
   background-color: #f188fb;
 }
 
-.column-player-1 {
+.column {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,19 +37,11 @@
   border-radius: 15px;
 }
 
-.column-player-1:hover {
+.column.player-1:hover {
   background-color: cyan;
 }
 
-.column-player-2 {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-radius: 15px;
-}
-
-.column-player-2:hover {
+.column.player-2:hover {
   background-color: #f188fb;
 }
 

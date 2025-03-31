@@ -51,11 +51,11 @@ export function Column({ index, rows, turn, updateBoard, restart }) {
     turn,
   })
 
-  const columnPlayerClass = turn ? "column-player-1" : "column-player-2"
+  const columnPlayerClass = turn ? "player-1" : "player-2"
 
   return (
     <div
-      className={columnPlayerClass}
+      className={[columnPlayerClass, "column"].join(" ")}
       onClick={() => {
         handleColumnClick(index)
       }}
