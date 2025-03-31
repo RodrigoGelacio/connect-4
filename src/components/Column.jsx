@@ -62,13 +62,13 @@ export function Column({ index, rows, turn, updateBoard, restart }) {
     >
       {arrayRows.map((turn, localIndex) => {
         return (
-          <div key={`${index}-${localIndex}`} className="row">
+          <div className="row">
             <Circle
               key={`${index}-${localIndex}`}
               index={localIndex}
               turn={turn}
               restart={restart}
-            ></Circle>
+            />
           </div>
         )
       })}
