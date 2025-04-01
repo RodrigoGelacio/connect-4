@@ -1,11 +1,7 @@
-import { useEffect, useRef, useState } from "react"
-import { getRowToFill } from "@/logic/board"
+import { NUM_ROWS } from "@/modules/board/constants"
+import { getRowToFill } from "@/modules/board/lib/logic"
+import { useCallback, useEffect, useState } from "react"
 import { Circle } from "./Circle"
-import { NUM_ROWS } from "@/board/constants"
-
-const initializeBoardColumns = (rows) => {
-  return Array.from({ length: rows }).fill(null)
-}
 
 const useBoardColumn = ({
   rows = NUM_ROWS,
@@ -15,63 +11,59 @@ const useBoardColumn = ({
   restart,
   updateBoard,
   turn,
+  columnIndex,
 } = {}) => {
-  const initialColumns = useRef(initializeBoardColumns(rows))
+  const createFreshBoard = useCallback(() => {
+    return Array.from({ length: rows }).fill(null)
+  }, [rows])
 
-  const [arrayRows, setArrayRows] = useState(initialColumns.current)
+  const [boardRows, setBoardRows] = useState(createFreshBoard)
 
-  const handleColumnClick = (index) => {
-    const rowtoChange = getRowToFill(arrayRows, rows)
+  const handleColumnSelection = () => {
+    const selectedRowIndex = getRowToFill(boardRows, rows)
 
-    const newArrayRows = [...arrayRows]
+    // Guard against invalid row selection (e.g., column is full). Consider
+    // the case when the game is finished (someone won or the board is
+    // complete)
+    if (selectedRowIndex === null) return
 
-    newArrayRows[rowtoChange] = turn
-    setArrayRows(newArrayRows)
-    updateBoard(rowtoChange, index)
+    const newBoardRows = [...boardRows]
+    newBoardRows[selectedRowIndex] = turn
+
+    setBoardRows(newBoardRows)
+    updateBoard(selectedRowIndex, columnIndex)
   }
 
-  // If restart is a boolean flag:
-  const resetColumns = () => setArrayRows(initialColumns.current)
-
-  // If restart should trigger the reset:
   useEffect(() => {
-    if (!restart) return
+    setBoardRows(createFreshBoard())
+  }, [restart, createFreshBoard])
 
-    resetColumns()
-  }, [restart])
-
-  return { arrayRows, handleColumnClick, resetColumns }
+  return { boardRows, handleColumnSelection }
 }
 
 export function Column({ index, rows, turn, updateBoard, restart }) {
-  const { arrayRows, handleColumnClick } = useBoardColumn({
+  const { boardRows, handleColumnSelection } = useBoardColumn({
     rows,
     restart,
     updateBoard,
     turn,
+    columnIndex: index,
   })
 
   const columnPlayerClass = turn ? "player-1" : "player-2"
 
   return (
     <div
-      className={[columnPlayerClass, "column"].join(" ")}
+      className={`column ${columnPlayerClass}`}
       onClick={() => {
-        handleColumnClick(index)
+        handleColumnSelection()
       }}
     >
-      {arrayRows.map((turn, localIndex) => {
-        return (
-          <div className="row">
-            <Circle
-              key={`${index}-${localIndex}`}
-              index={localIndex}
-              turn={turn}
-              restart={restart}
-            />
-          </div>
-        )
-      })}
+      {boardRows.map((turn, localIndex) => (
+        <div className="row" key={`${index}-${localIndex}`}>
+          <Circle turn={turn} restart={restart} />
+        </div>
+      ))}
     </div>
   )
 }
