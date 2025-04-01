@@ -1,4 +1,4 @@
-import { numCols, numRows } from "../constants";
+import { numCols, numRows } from "@/modules/board/constants";
 
 const directions = {
   w: (i, j) => [i, j - 1],
@@ -10,11 +10,28 @@ const directions = {
   s: (i, j) => [i + 1, j],
   sw: (i, j) => [i + 1, j - 1],
 };
-export function getRowToFill(arrayRows, numRows) {
-  while (arrayRows[numRows] !== null) {
-    numRows--;
+
+/**
+ * Get the index of the row to fill when selecting a column.
+ * @param {Array<boolean>} boardRows Array with the current information of the
+ * game: which cell correspond to which player.
+ * @param {number} numberOfRows The game's configured number of rows. The
+ * original number.
+ * @returns The index of the row which can be filled. If the board is from 6
+ * rows and the indices 4 and 5 are already selected, it will return the index
+ * 3.
+ */
+export function getRowToFill(boardRows, numberOfRows) {
+  const INDEX_OVERFLOW = -1
+  let currentRow = numberOfRows
+
+  while (boardRows[currentRow] !== null) {
+    currentRow--;
+
+    if (currentRow === INDEX_OVERFLOW) return null
   }
-  return numRows;
+
+  return currentRow;
 }
 
 export function isWinner(board) {
