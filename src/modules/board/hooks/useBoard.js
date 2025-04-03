@@ -12,11 +12,11 @@ export const useBoardColumn = ({
   turn,
   columnIndex,
 } = {}) => {
-  const createFreshBoard = useCallback(() => {
+  const createFreshRows = useCallback(() => {
     return Array.from({ length: rows }).fill(null)
   }, [rows])
 
-  const [boardRows, setBoardRows] = useState(createFreshBoard)
+  const [boardRows, setBoardRows] = useState(createFreshRows)
 
   const handleColumnSelection = () => {
     const selectedRowIndex = getRowToFill(boardRows, rows)
@@ -34,8 +34,8 @@ export const useBoardColumn = ({
   }
 
   useEffect(() => {
-    setBoardRows(createFreshBoard())
-  }, [restart, createFreshBoard])
+    setBoardRows(createFreshRows())
+  }, [restart, createFreshRows])
 
   return { boardRows, handleColumnSelection }
 }
