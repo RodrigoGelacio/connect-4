@@ -1,11 +1,11 @@
-import { Circle } from "./Circle";
+import { Circle } from "../modules/board/components/Circle"
 
 export function WinnerModal({ winner, turn, restartGame }) {
-  if (!winner) return null;
+  if (!winner) return null
 
   const handleClick = () => {
-    restartGame();
-  };
+    restartGame()
+  }
 
   return (
     <div className="winner-modal">
@@ -15,5 +15,5 @@ export function WinnerModal({ winner, turn, restartGame }) {
         <button onClick={handleClick}>Restart game</button>
       </div>
     </div>
-  );
+  )
 }

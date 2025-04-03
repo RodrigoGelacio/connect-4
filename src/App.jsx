@@ -1,6 +1,6 @@
 import { isWinner } from "@/modules/board/lib/logic"
 import { useState } from "react"
-import { Column } from "./components/Column.jsx"
+import { Column } from "./modules/board/components/Column.jsx"
 import { numRows, numCols } from "@/modules/board/constants"
 import "./App.css"
 import { WinnerModal } from "./components/winnerModal.jsx"
