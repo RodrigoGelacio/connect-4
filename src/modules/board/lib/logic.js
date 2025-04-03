@@ -36,56 +36,23 @@ export function getRowToFill(boardRows, numberOfRows) {
   return currentRow
 }
 
-/**
- * Evaluates every direction given a board and coordinates to determine if a
- * user has won the game.
- *
- * By using the `some` method, the evaluation will stop once a `truthy` value
- * is found.
- * https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/some#descripci%C3%B3n
- * @param {*} board
- * @param {*} i
- * @param {*} j
- * @returns
- */
-const isWinnerCell = (board, i, j) => {
-  return DIRECTION_FUNCTIONS.some((directionFunction) => {
-    const hasWon = isWinnerRow(
-      board,
-      board[i][j],
-      directionFunction,
-      i,
-      j,
-      NUM_ROWS,
-      NUM_COLS,
-    )
-
-    return hasWon
-  })
-}
-
-export function isWinner(board) {
-  const rows = board.length
-  const cols = board[0].length
-
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < cols; j++) {
-      if (isWinnerCell(board, i, j)) {
-        return true
-      }
-    }
-  }
-
-  return false
-}
-
-function isWinnerRow(board, turn, directionFunction, i, j, numRows, numCols) {
-  let counter = 0
+function isWinnerRow({
+  board,
+  i,
+  j,
+  directionFunction,
+  numberOfRows,
+  numberOfColumns,
+} = {}) {
+  const turn = board[i][j]
   let newTurn = turn
+
+  let counter = 0
+
   let [newI, newJ] = directionFunction(i, j)
 
   while (
-    inRange(newI, newJ, numRows, numCols) &&
+    inRange(newI, newJ, numberOfRows, numberOfColumns) &&
     counter < 4 &&
     newTurn !== null &&
     turn === newTurn
@@ -100,6 +67,48 @@ function isWinnerRow(board, turn, directionFunction, i, j, numRows, numCols) {
       return true
     }
   }
+  return false
+}
+
+/**
+ * Evaluates every direction given a board and coordinates to determine if a
+ * user has won the game.
+ *
+ * By using the `some` method, the evaluation will stop once a `truthy` value
+ * is found.
+ * https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/some#descripci%C3%B3n
+ * @param {*} board
+ * @param {*} i
+ * @param {*} j
+ * @returns
+ */
+const isWinnerCell = ({ board, i, j, numberOfRows, numberOfColumns } = {}) => {
+  return DIRECTION_FUNCTIONS.some((directionFunction) => {
+    const hasWon = isWinnerRow({
+      board,
+      directionFunction,
+      i,
+      j,
+      numberOfRows,
+      numberOfColumns,
+    })
+
+    return hasWon
+  })
+}
+
+export function isWinner(board) {
+  const numberOfRows = board.length
+  const numberOfColumns = board[0].length
+
+  for (let i = 0; i < numberOfRows; i++) {
+    for (let j = 0; j < numberOfColumns; j++) {
+      if (isWinnerCell({ board, i, j, numberOfRows, numberOfColumns })) {
+        return true
+      }
+    }
+  }
+
   return false
 }
 
