@@ -11,6 +11,8 @@ const DIRECTIONS = {
   sw: (i, j) => [i + 1, j - 1],
 }
 
+const DIRECTION_FUNCTIONS = Object.values(DIRECTIONS)
+
 /**
  * Get the index of the row to fill when selecting a column.
  * @param {Array<boolean>} boardRows Array with the current information of the
@@ -38,13 +40,19 @@ export function isWinner(board) {
   const rows = board.length
   const cols = board[0].length
 
-  const directionCycle = Object.keys(DIRECTIONS)
-
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
-      for (const direction of directionCycle) {
+      for (const directionFunction of DIRECTION_FUNCTIONS) {
         if (
-          isWinnerRow(board, board[i][j], direction, i, j, NUM_ROWS, NUM_COLS)
+          isWinnerRow(
+            board,
+            board[i][j],
+            directionFunction,
+            i,
+            j,
+            NUM_ROWS,
+            NUM_COLS,
+          )
         ) {
           return true
         }
@@ -54,10 +62,11 @@ export function isWinner(board) {
   return false
 }
 
-function isWinnerRow(board, turn, direction, i, j, numRows, numCols) {
+function isWinnerRow(board, turn, directionFunction, i, j, numRows, numCols) {
   let counter = 0
   let newTurn = turn
-  let [newI, newJ] = DIRECTIONS[direction](i, j)
+  let [newI, newJ] = directionFunction(i, j)
+
   while (
     inRange(newI, newJ, numRows, numCols) &&
     counter < 4 &&
@@ -65,7 +74,7 @@ function isWinnerRow(board, turn, direction, i, j, numRows, numCols) {
     turn === newTurn
   ) {
     newTurn = board[newI][newJ]
-    let [moveI, moveJ] = DIRECTIONS[direction](newI, newJ)
+    let [moveI, moveJ] = directionFunction(newI, newJ)
     newI = moveI
     newJ = moveJ
     counter = counter + 1
