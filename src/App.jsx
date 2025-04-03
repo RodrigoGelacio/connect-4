@@ -1,9 +1,9 @@
+import { Column } from "@/modules/board/components/Column"
 import { NUM_COLS, NUM_ROWS } from "@/modules/board/constants"
 import { isWinner } from "@/modules/board/lib/logic"
 import { useState } from "react"
 import "./App.css"
-import { WinnerModal } from "./components/winnerModal.jsx"
-import { Column } from "@/modules/board/components/Column"
+import { WinnerModal } from "./modules/board/components/WinnerModal"
 
 function App() {
   const [winner, setWinner] = useState(false)
