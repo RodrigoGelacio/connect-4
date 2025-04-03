@@ -36,8 +36,20 @@ export function getRowToFill(boardRows, numberOfRows) {
   return currentRow
 }
 
+/**
+ * Evaluates every direction given a board and coordinates to determine if a
+ * user has won the game.
+ *
+ * By using the `some` method, the evaluation will stop once a `truthy` value
+ * is found.
+ * https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/some#descripci%C3%B3n
+ * @param {*} board
+ * @param {*} i
+ * @param {*} j
+ * @returns
+ */
 const isWinnerCell = (board, i, j) => {
-  for (const directionFunction of DIRECTION_FUNCTIONS) {
+  return DIRECTION_FUNCTIONS.some((directionFunction) => {
     const hasWon = isWinnerRow(
       board,
       board[i][j],
@@ -48,10 +60,8 @@ const isWinnerCell = (board, i, j) => {
       NUM_COLS,
     )
 
-    if (hasWon) return true
-  }
-
-  return false
+    return hasWon
+  })
 }
 
 export function isWinner(board) {
