@@ -1,4 +1,4 @@
-import { Circle } from "../modules/board/components/Circle"
+import { Circle } from "@/modules/board/components/Circle"
 
 export function WinnerModal({ winner, turn, restartGame }) {
   if (!winner) return null
@@ -10,7 +10,7 @@ export function WinnerModal({ winner, turn, restartGame }) {
   return (
     <div className="winner-modal">
       <div className="winner-container">
-        <Circle turn={turn}></Circle>
+        <Circle turn={turn} />
         <h1 className="winner-title">wins!</h1>
         <button onClick={handleClick}>Restart game</button>
       </div>
