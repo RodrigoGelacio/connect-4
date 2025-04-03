@@ -1,5 +1,5 @@
 import { NUM_COLS, NUM_ROWS } from "@/modules/board/constants"
-import { getRowToFill } from "@/modules/board/lib/logic"
+import { getRowToFill, isWinner } from "@/modules/board/lib/logic"
 import { useCallback, useEffect, useState } from "react"
 
 export const useBoardColumn = ({
@@ -41,18 +41,54 @@ export const useBoardColumn = ({
 }
 
 export const useBoard = ({ rows = NUM_ROWS, columns = NUM_COLS } = {}) => {
+  const boardColumns = Array(columns).fill(null)
+
   const createFreshBoard = useCallback(() => {
-    return Array.from({ length: rows }, () => Array(columns).fill(null))
-  }, [rows, columns])
+    return Array.from({ length: rows }, () => [...boardColumns])
+  }, [rows, boardColumns])
 
   const [board, setBoard] = useState(createFreshBoard)
+
+  const [restart, setRestart] = useState(false)
+  const [winner, setWinner] = useState(false)
+  const [turn, setTurn] = useState(true)
 
   const resetBoard = useCallback(() => {
     setBoard(createFreshBoard)
   }, [createFreshBoard])
 
+  const restartGame = useCallback(() => {
+    setWinner(false)
+    setTurn(true)
+
+    resetBoard()
+
+    setRestart((current) => !current)
+  }, [resetBoard])
+
+  const canUpdateBoard = () => isWinner(board) === false
+
+  const updateBoard = (row, col) => {
+    const newBoard = [...board]
+    newBoard[row][col] = turn
+
+    if (isWinner(newBoard)) {
+      setWinner(true)
+      return
+    }
+
+    setTurn((currentTurn) => !currentTurn)
+  }
+
   return {
     board,
+    boardColumns,
+    canUpdateBoard,
     resetBoard,
+    restart,
+    restartGame,
+    turn,
+    updateBoard,
+    winner,
   }
 }

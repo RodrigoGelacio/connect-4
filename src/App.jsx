@@ -1,50 +1,23 @@
 import { Column } from "@/modules/board/components/Column"
 import { NUM_COLS, NUM_ROWS } from "@/modules/board/constants"
-import { isWinner } from "@/modules/board/lib/logic"
-import { useState } from "react"
 import "./App.css"
+import { RestartButton } from "./modules/board/components/RestartButton"
 import { WinnerModal } from "./modules/board/components/WinnerModal"
 import { useBoard } from "./modules/board/hooks/useBoard"
-import { RestartButton } from "./modules/board/components/RestartButton"
 
 function App() {
-  const [winner, setWinner] = useState(false)
-  const [restart, setRestart] = useState(false)
-  const [turn, setTurn] = useState(true)
-
-  const { board, resetBoard } = useBoard({ rows: NUM_ROWS, columns: NUM_COLS })
-
-  const colArray = Array.from({ length: NUM_COLS }, (_, index) => index)
-
-  const restartGame = () => {
-    setWinner(false)
-    setTurn(true)
-
-    resetBoard()
-
-    setRestart(!restart)
-    // document.querySelectorAll(".circle").forEach((elem) => {
-    //   elem.className = "circle";
-    // });
-  }
-
-  const updateBoard = (row, col) => {
-    const newBoard = [...board]
-    newBoard[row][col] = turn
-
-    if (isWinner(newBoard)) {
-      setWinner(true)
-    } else {
-      setTurn(!turn)
-    }
-  }
+  const { updateBoard, turn, restart, restartGame, winner, boardColumns } =
+    useBoard({
+      rows: NUM_ROWS,
+      columns: NUM_COLS,
+    })
 
   return (
     <div className="board-container">
       <h1 className="game-title">4 CONNECT!</h1>
 
       <div className="board">
-        {colArray.map((_, index) => {
+        {boardColumns.map((_, index) => {
           return (
             <Column
               updateBoard={updateBoard}
