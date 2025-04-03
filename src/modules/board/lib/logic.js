@@ -1,6 +1,6 @@
-import { NUM_COLS, NUM_ROWS } from "@/modules/board/constants";
+import { NUM_COLS, NUM_ROWS } from "@/modules/board/constants"
 
-const directions = {
+const DIRECTIONS = {
   w: (i, j) => [i, j - 1],
   nw: (i, j) => [i - 1, j - 1],
   n: (i, j) => [i - 1, j],
@@ -9,7 +9,7 @@ const directions = {
   se: (i, j) => [i + 1, j + 1],
   s: (i, j) => [i + 1, j],
   sw: (i, j) => [i + 1, j - 1],
-};
+}
 
 /**
  * Get the index of the row to fill when selecting a column.
@@ -26,19 +26,19 @@ export function getRowToFill(boardRows, numberOfRows) {
   let currentRow = numberOfRows
 
   while (boardRows[currentRow] !== null) {
-    currentRow--;
+    currentRow--
 
     if (currentRow === INDEX_OVERFLOW) return null
   }
 
-  return currentRow;
+  return currentRow
 }
 
 export function isWinner(board) {
-  const rows = board.length;
-  const cols = board[0].length;
+  const rows = board.length
+  const cols = board[0].length
 
-  const directionCycle = Object.keys(directions);
+  const directionCycle = Object.keys(DIRECTIONS)
 
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
@@ -46,37 +46,37 @@ export function isWinner(board) {
         if (
           isWinnerRow(board, board[i][j], direction, i, j, NUM_ROWS, NUM_COLS)
         ) {
-          return true;
+          return true
         }
       }
     }
   }
-  return false;
+  return false
 }
 
 function isWinnerRow(board, turn, direction, i, j, numRows, numCols) {
-  let counter = 0;
-  let newTurn = turn;
-  let [newI, newJ] = directions[direction](i, j);
+  let counter = 0
+  let newTurn = turn
+  let [newI, newJ] = DIRECTIONS[direction](i, j)
   while (
     inRange(newI, newJ, numRows, numCols) &&
     counter < 4 &&
     newTurn !== null &&
     turn === newTurn
   ) {
-    newTurn = board[newI][newJ];
-    let [moveI, moveJ] = directions[direction](newI, newJ);
-    newI = moveI;
-    newJ = moveJ;
-    counter = counter + 1;
+    newTurn = board[newI][newJ]
+    let [moveI, moveJ] = DIRECTIONS[direction](newI, newJ)
+    newI = moveI
+    newJ = moveJ
+    counter = counter + 1
 
     if (counter === 4) {
-      return true;
+      return true
     }
   }
-  return false;
+  return false
 }
 
 function inRange(i, j, numRows, numCols) {
-  return i >= 0 && i < numRows && j >= 0 && j < numCols;
+  return i >= 0 && i < numRows && j >= 0 && j < numCols
 }
