@@ -5,6 +5,7 @@ import { useState } from "react"
 import "./App.css"
 import { WinnerModal } from "./modules/board/components/WinnerModal"
 import { useBoard } from "./modules/board/hooks/useBoard"
+import { RestartButton } from "./modules/board/components/RestartButton"
 
 function App() {
   const [winner, setWinner] = useState(false)
@@ -41,6 +42,7 @@ function App() {
   return (
     <div className="board-container">
       <h1 className="game-title">4 CONNECT!</h1>
+
       <div className="board">
         {colArray.map((_, index) => {
           return (
@@ -55,7 +57,10 @@ function App() {
           )
         })}
       </div>
-      <div className="">{turn ? "Player 1" : "Player 2"} turn!</div>
+      <div className="game-footer">
+        <div className="">{turn ? "Player 1" : "Player 2"} turn!</div>
+        <RestartButton restartGame={restartGame} />
+      </div>
       <WinnerModal
         restartGame={restartGame}
         winner={winner}

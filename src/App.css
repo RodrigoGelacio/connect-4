@@ -1,9 +1,19 @@
+.game-footer {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  align-items: center;
+  padding: 8px 0;
+}
+
 .board-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
   height: 100%;
 }
 
