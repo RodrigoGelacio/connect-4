@@ -4,21 +4,23 @@ import { isWinner } from "@/modules/board/lib/logic"
 import { useState } from "react"
 import "./App.css"
 import { WinnerModal } from "./modules/board/components/WinnerModal"
+import { useBoard } from "./modules/board/hooks/useBoard"
 
 function App() {
   const [winner, setWinner] = useState(false)
   const [restart, setRestart] = useState(false)
   const [turn, setTurn] = useState(true)
-  const [board, setBoard] = useState(
-    Array.from({ length: NUM_ROWS }, () => Array(NUM_COLS).fill(null)),
-  )
+
+  const { board, resetBoard } = useBoard({ rows: NUM_ROWS, columns: NUM_COLS })
 
   const colArray = Array.from({ length: NUM_COLS }, (_, index) => index)
 
   const restartGame = () => {
     setWinner(false)
     setTurn(true)
-    setBoard(Array.from({ length: NUM_ROWS }, () => Array(NUM_COLS).fill(null)))
+
+    resetBoard()
+
     setRestart(!restart)
     // document.querySelectorAll(".circle").forEach((elem) => {
     //   elem.className = "circle";

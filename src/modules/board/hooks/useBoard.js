@@ -1,13 +1,16 @@
-import { NUM_ROWS } from "@/modules/board/constants";
-import { getRowToFill } from "@/modules/board/lib/logic";
-import { useCallback, useEffect, useState } from "react";
+import { NUM_COLS, NUM_ROWS } from "@/modules/board/constants"
+import { getRowToFill } from "@/modules/board/lib/logic"
+import { useCallback, useEffect, useState } from "react"
 
 export const useBoardColumn = ({
   rows = NUM_ROWS,
   // I think we could use something like a global state manager (zustand,
   // jotai, etc) to to manage the state of the board while avoiding prop
   // drilling
-  restart, updateBoard, turn, columnIndex,
+  restart,
+  updateBoard,
+  turn,
+  columnIndex,
 } = {}) => {
   const createFreshBoard = useCallback(() => {
     return Array.from({ length: rows }).fill(null)
@@ -35,4 +38,21 @@ export const useBoardColumn = ({
   }, [restart, createFreshBoard])
 
   return { boardRows, handleColumnSelection }
+}
+
+export const useBoard = ({ rows = NUM_ROWS, columns = NUM_COLS } = {}) => {
+  const createFreshBoard = useCallback(() => {
+    return Array.from({ length: rows }, () => Array(columns).fill(null))
+  }, [rows, columns])
+
+  const [board, setBoard] = useState(createFreshBoard)
+
+  const resetBoard = useCallback(() => {
+    setBoard(createFreshBoard)
+  }, [createFreshBoard])
+
+  return {
+    board,
+    resetBoard,
+  }
 }
