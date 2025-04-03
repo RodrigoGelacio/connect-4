@@ -36,6 +36,11 @@ export function getRowToFill(boardRows, numberOfRows) {
   return currentRow
 }
 
+const hasConnectedFourTokens = (counter) => {
+  const TOKENS_TO_WIN = 4
+  return counter >= TOKENS_TO_WIN
+}
+
 function isWinnerRow({
   board,
   i,
@@ -53,20 +58,24 @@ function isWinnerRow({
 
   while (
     inRange(newI, newJ, numberOfRows, numberOfColumns) &&
-    counter < 4 &&
+    !hasConnectedFourTokens(counter) &&
     newTurn !== null &&
     turn === newTurn
   ) {
     newTurn = board[newI][newJ]
-    let [moveI, moveJ] = directionFunction(newI, newJ)
+
+    const [moveI, moveJ] = directionFunction(newI, newJ)
+
     newI = moveI
     newJ = moveJ
+
     counter = counter + 1
 
-    if (counter === 4) {
+    if (hasConnectedFourTokens(counter)) {
       return true
     }
   }
+
   return false
 }
 
