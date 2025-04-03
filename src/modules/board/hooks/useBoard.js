@@ -40,6 +40,20 @@ export const useBoardColumn = ({
   return { boardRows, handleColumnSelection }
 }
 
+/**
+ * Board statefull logic hook.
+ *
+ * This could be turned into a global state, using the `React Context API` or
+ * some other state management library, such as `Zustand`. This would fix the
+ * prop drilling issue and would lead to remove many unnecessary props which
+ * could be extracted from the global state.
+ *
+ * References:
+ * - [Kent C. Dodds - How to use React Context effectively](https://kentcdodds.com/blog/how-to-use-react-context-effectively)
+ * - [Zustand Docs](https://zustand.docs.pmnd.rs/getting-started/introduction)
+ * - [Midulive (YouTube) - ¡No necesitas Redux en React! Aprende a usar Zustand, alternativa sencilla. (Curso de React)](https://www.youtube.com/watch?v=p2wF2wRjcN0)
+ * @returns
+ */
 export const useBoard = ({ rows = NUM_ROWS, columns = NUM_COLS } = {}) => {
   const boardColumns = Array(columns).fill(null)
 
