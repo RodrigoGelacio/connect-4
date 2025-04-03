@@ -36,6 +36,23 @@ export function getRowToFill(boardRows, numberOfRows) {
   return currentRow
 }
 
+/**
+ * Check if a cell falls under the allowed range.
+ * @param {*} i
+ * @param {*} j
+ * @param {*} numRows
+ * @param {*} numCols
+ * @returns
+ */
+function isCellInRange(i, j, numRows, numCols) {
+  const START_OF_RANGE = 0
+
+  const isInRowsRange = i >= START_OF_RANGE && i < numRows
+  const isInColumnsRange = j >= START_OF_RANGE && j < numCols
+
+  return isInRowsRange && isInColumnsRange
+}
+
 const hasConnectedFourTokens = (counter) => {
   const TOKENS_TO_WIN = 4
   return counter >= TOKENS_TO_WIN
@@ -57,7 +74,7 @@ function isWinnerRow({
   let [newI, newJ] = directionFunction(i, j)
 
   while (
-    inRange(newI, newJ, numberOfRows, numberOfColumns) &&
+    isCellInRange(newI, newJ, numberOfRows, numberOfColumns) &&
     !hasConnectedFourTokens(counter) &&
     newTurn !== null &&
     turn === newTurn
@@ -119,8 +136,4 @@ export function isWinner(board) {
   }
 
   return false
-}
-
-function inRange(i, j, numRows, numCols) {
-  return i >= 0 && i < numRows && j >= 0 && j < numCols
 }
