@@ -26,19 +26,16 @@ function App() {
               index={index}
               rows={NUM_ROWS}
               restart={restart}
-            ></Column>
+            />
           )
         })}
       </div>
       <div className="game-footer">
-        <div className="">{turn ? "Player 1" : "Player 2"} turn!</div>
+        <div>{turn ? "Player 1" : "Player 2"} turn!</div>
         <RestartButton restartGame={restartGame} />
       </div>
-      <WinnerModal
-        restartGame={restartGame}
-        winner={winner}
-        turn={turn}
-      ></WinnerModal>
+
+      <WinnerModal restartGame={restartGame} winner={winner} turn={turn} />
     </div>
   )
 }
