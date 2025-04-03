@@ -21,7 +21,7 @@ export function Column({ index, rows, turn, updateBoard, restart }) {
     >
       {boardRows.map((turn, localIndex) => (
         <div className="row" key={`${index}-${localIndex}`}>
-          <Circle turn={turn} restart={restart} />
+          <Circle turn={turn} />
         </div>
       ))}
     </div>
