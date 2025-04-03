@@ -1,5 +1,3 @@
-import { NUM_COLS, NUM_ROWS } from "@/modules/board/constants"
-
 const DIRECTIONS = {
   w: (i, j) => [i, j - 1],
   nw: (i, j) => [i - 1, j - 1],
@@ -11,6 +9,9 @@ const DIRECTIONS = {
   sw: (i, j) => [i + 1, j - 1],
 }
 
+/**
+ * All of the available direction functions, independent of their key.
+ */
 const DIRECTION_FUNCTIONS = Object.values(DIRECTIONS)
 
 /**
@@ -58,6 +59,10 @@ const hasConnectedFourTokens = (counter) => {
   return counter >= TOKENS_TO_WIN
 }
 
+/**
+ * Validate if a row qualifies as winner.
+ * @returns
+ */
 function isWinnerRow({
   board,
   i,
