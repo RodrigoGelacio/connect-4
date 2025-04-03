@@ -1,4 +1,4 @@
-import { numCols, numRows } from "@/modules/board/constants";
+import { NUM_COLS, NUM_ROWS } from "@/modules/board/constants";
 
 const directions = {
   w: (i, j) => [i, j - 1],
@@ -44,7 +44,7 @@ export function isWinner(board) {
     for (let j = 0; j < cols; j++) {
       for (const direction of directionCycle) {
         if (
-          isWinnerRow(board, board[i][j], direction, i, j, numRows, numCols)
+          isWinnerRow(board, board[i][j], direction, i, j, NUM_ROWS, NUM_COLS)
         ) {
           return true;
         }

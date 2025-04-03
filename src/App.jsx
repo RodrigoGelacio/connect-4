@@ -1,24 +1,24 @@
-import { numCols, numRows } from "@/modules/board/constants"
+import { NUM_COLS, NUM_ROWS } from "@/modules/board/constants"
 import { isWinner } from "@/modules/board/lib/logic"
 import { useState } from "react"
 import "./App.css"
 import { WinnerModal } from "./components/winnerModal.jsx"
-import { Column } from "./modules/board/components/Column"
+import { Column } from "@/modules/board/components/Column"
 
 function App() {
   const [winner, setWinner] = useState(false)
   const [restart, setRestart] = useState(false)
   const [turn, setTurn] = useState(true)
   const [board, setBoard] = useState(
-    Array.from({ length: numRows }, () => Array(numCols).fill(null)),
+    Array.from({ length: NUM_ROWS }, () => Array(NUM_COLS).fill(null)),
   )
 
-  const colArray = Array.from({ length: numCols }, (_, index) => index)
+  const colArray = Array.from({ length: NUM_COLS }, (_, index) => index)
 
   const restartGame = () => {
     setWinner(false)
     setTurn(true)
-    setBoard(Array.from({ length: numRows }, () => Array(numCols).fill(null)))
+    setBoard(Array.from({ length: NUM_ROWS }, () => Array(NUM_COLS).fill(null)))
     setRestart(!restart)
     // document.querySelectorAll(".circle").forEach((elem) => {
     //   elem.className = "circle";
@@ -47,7 +47,7 @@ function App() {
               turn={turn}
               key={index}
               index={index}
-              rows={numRows}
+              rows={NUM_ROWS}
               restart={restart}
             ></Column>
           )
