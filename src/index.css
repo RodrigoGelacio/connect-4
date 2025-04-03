@@ -13,41 +13,71 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+  /* https://tailwindcss.com/docs/colors#customizing-your-colors */
+  --color-blue-1: #646cff;
+  --color-blue-2: #535bf2;
+  --color-blue-3: #747bff;
+  --color-blue-dark: #213547;
+  --color-gray-light: #f9f9f9;
+  --color-gray-dark: #1a1a1a;
+}
+
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--color-blue-1);
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: var(--color-blue-2);
 }
 
 body {
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100dvw;
+}
+
+#root {
+  width: 100%;
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 2rem;
   line-height: 1.1;
+}
+
+@media (min-width: 32rem) {
+  h1 {
+    font-size: 3.2rem;
+  }
 }
 
 button {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+  /* 
+   * https://www.joshwcomeau.com/css/ *
+   * surprising-truth-about-pixels-and-accessibility/#:~:text=Strategic%20unit%20deployment
+   *
+   * "Should this value scale up as the user increases their  * browser's
+   * default font size? 
+   *
+   * This question is the root of the mental model I use. If the value should
+   * increase with the default font size, I use rem. Otherwise, I use px."
+   */
+  padding: 10px 14px;
+  font-size: 1rem;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--color-gray-dark);
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: var(--color-blue-1);
 }
 button:focus,
 button:focus-visible {
@@ -56,13 +86,13 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: var(--color-blue-dark);
+    background-color: white;
   }
   a:hover {
-    color: #747bff;
+    color: var(--color-blue-3);
   }
   button {
-    background-color: #f9f9f9;
+    background-color: var(--color-gray-light);
   }
 }

@@ -1,34 +1,45 @@
-.board-container{
+.game-footer {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.board-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 100vw;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  height: 100%;
 }
 
-.board-container .board{
+.board-container .board {
   display: flex;
   flex-direction: row;
 }
 
-.circle{
-  width: 5rem;
-  height: 5rem;
+.circle {
+  /* width: 5rem;
+  height: 5rem; */
+  width: 48px;
+  height: 48px;
   background-color: black;
   border-radius: 50%;
 }
 
-.circle.player-1{
+.circle.player-1 {
   background-color: cyan;
 }
 
-.circle.player-2{
+.circle.player-2 {
   background-color: #f188fb;
 }
 
-
-.column-player-1{
+.column {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -36,38 +47,30 @@
   border-radius: 15px;
 }
 
-.column-player-1:hover{
+.column.player-1:hover {
   background-color: cyan;
 }
 
-.column-player-2{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-radius: 15px;
-}
-
-.column-player-2:hover{
+.column.player-2:hover {
   background-color: #f188fb;
 }
-.row{
+
+.row {
   /* border: 1px solid cyan; */
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
+  padding: 4px;
 }
 
-
-.winner-modal{
+.winner-modal {
   position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.winner-container{
+.winner-container {
   background-color: white;
   border-radius: 15px;
   display: flex;
@@ -77,6 +80,18 @@
   padding: 2rem;
 }
 
-.winner-title{
+.winner-title {
   color: black;
+}
+
+/* https://www.joshwcomeau.com/css/surprising-truth-about-pixels-and-accessibility/#media-queries-7 */
+@media (min-width: 32rem) {
+  .circle {
+    width: 64px;
+    height: 64px;
+  }
+
+  .row {
+    padding: 10px;
+  }
 }
