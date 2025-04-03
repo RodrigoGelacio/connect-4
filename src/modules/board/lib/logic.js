@@ -36,29 +36,36 @@ export function getRowToFill(boardRows, numberOfRows) {
   return currentRow
 }
 
+const isWinnerCell = (board, i, j) => {
+  for (const directionFunction of DIRECTION_FUNCTIONS) {
+    const hasWon = isWinnerRow(
+      board,
+      board[i][j],
+      directionFunction,
+      i,
+      j,
+      NUM_ROWS,
+      NUM_COLS,
+    )
+
+    if (hasWon) return true
+  }
+
+  return false
+}
+
 export function isWinner(board) {
   const rows = board.length
   const cols = board[0].length
 
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
-      for (const directionFunction of DIRECTION_FUNCTIONS) {
-        if (
-          isWinnerRow(
-            board,
-            board[i][j],
-            directionFunction,
-            i,
-            j,
-            NUM_ROWS,
-            NUM_COLS,
-          )
-        ) {
-          return true
-        }
+      if (isWinnerCell(board, i, j)) {
+        return true
       }
     }
   }
+
   return false
 }
 
